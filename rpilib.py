@@ -25,7 +25,7 @@ class InputOutput:
             print(self.ports[port])
 
     def setup(self, port, direction, initial=None, pull=None):
-        if (port not in self.ports):
+        if not self.is_avail(port):
             print(f'Unavailable port: {port}')
             return False
         if (direction == "output" or direction == GPIO.OUT or direction == 0):
@@ -48,8 +48,11 @@ class InputOutput:
             print(f'Error: port direction: {direction}')
             return False
 
+    def is_avail(self, port):
+        return port in self.ports
+
     def is_output(self, port):
-        if (port not in self.ports):
+        if not self.is_avail(port):
             print(f'Unavailable port: {port}')
             return False
         if (self.ports[port].direction != GPIO.OUT):
@@ -61,9 +64,9 @@ class InputOutput:
         return True
 
     def output_high(self, port):
-        if (is_output(port)):
+        if (self.is_output(port)):
             GPIO.output(port, GPIO.HIGH)
 
-    def output_low(port):
-        if (is_output(port)):
+    def output_low(self, port):
+        if (self.is_output(port)):
             GPIO.output(port, GPIO.LOW)

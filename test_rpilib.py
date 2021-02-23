@@ -36,3 +36,9 @@ def test_is_output():
     assert not testio.is_output(5)
     testio.setup(4, "output", 1)
     assert testio.is_output(4)
+
+
+def test_is_avail():
+    testio = InputOutput()
+    assert not testio.is_avail(10)
+    assert testio.is_avail(5)
